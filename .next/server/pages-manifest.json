@@ -1,8 +1,0 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/posts/build-table": "pages/posts/build-table.js",
-  "/posts/[id]": "pages/posts/[id].js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js"
-}
