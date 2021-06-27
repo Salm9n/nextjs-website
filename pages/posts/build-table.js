@@ -8,8 +8,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import countries from "../../countries.json";
+import { countries } from "../../country.js";
 import Link from "next/link";
+
+export const getStaticProps = async () => {
+
+  return { 
+    props: {
+      countryList: countries,
+    },
+  }
+}
 
 const useStyles = makeStyles({
   table: {
@@ -28,7 +37,7 @@ const useStyles = makeStyles({
 });
 
 
-export default function BasicTable() {
+export default function BasicTable({ countryList }) {
   const classes = useStyles();
 
   return (
@@ -41,14 +50,14 @@ export default function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.entries(countries).map((value, i) => (
-            <TableRow key={i}>
+          {countryList.map((country) => (
+            <TableRow key={country.id}>
               <TableCell>
-              <Link href="/posts/[id]" as={"/posts/" + value[0]}>
-                <a>{value[1].title}</a>
+              <Link href={'/posts/[id]'} as={'/posts/' + country.name}>
+                <a>{country.name}</a>
                 </Link>
               </TableCell>
-              <TableCell align="right">{value[1].content}</TableCell>
+              <TableCell align="right">{country.code}</TableCell>
             </TableRow>
           ))}
         </TableBody>
