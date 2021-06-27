@@ -1,21 +1,29 @@
-import countries from "../../countries.json";
+import { countries } from '../../country.js'
 
-const Country = props => {
-  return (
-     <div>
-      <h1>{countries.post.title}</h1>
-      <p>{countries.post.content}</p>
-    </div>
-  )
-}
+export const getStaticProps = async ( {params} ) => {
+  const countryList = countries.filter(p => p.name.toString() == params.id)
+  return {
+    props: {
+      country: countryList[0],
+    },
 
-Country.getInitialProps = ({query}) => {
-  return { 
-    country: countries[query.id]
   }
 }
 
+export const getStaticPaths = async () => {
+
+  const paths = countries.map(country => ({
+    params: {id : country.name.toString()},
+
+  }))
+  return {paths, fallback: false}
+}
 
 
-export default Country 
+export default ({country}) => (
+  <div>
+    <h1> Hello {country.name} </h1>
+    <p> Country code is {country.code} </p>
+    </div>
 
+  )
